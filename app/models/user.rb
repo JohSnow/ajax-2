@@ -10,4 +10,7 @@ class User < ApplicationRecord
     # # 取 email 的前半部分来显示， 你也可以另开一个字段 nickname 让用户自己来编辑显示名称
     self.email.split("@").first
   end
+
+  has_many :likes, :dependent => :destroy
+  has_many :liked_posts, :through => :likes, :source => :post
 end

@@ -10,13 +10,28 @@ class PostsController < ApplicationController
     @post.user = current_user
     @post.save
 
-    redirect_to posts_path
   end
 
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
 
+  end
+
+  def like
+    @post = Post.find(params[:id])
+    unless @post.find_like(current_user) # 如果已经点过赞 就略过不新增
+      Like.create( :user => current_user, :post => @post)
+    end
+
+  end
+
+  def unlike
+    @post = Post.find(params[:id])
+    like = @post.find_like(current_user)
+    like.destroy
+
+    render "like"
   end
 
     protected
