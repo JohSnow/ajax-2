@@ -10,15 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170714132722) do
+ActiveRecord::Schema.define(version: 20170714152011) do
 
-  create_table "collects", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "post_id"
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["post_id"], name: "index_collects_on_post_id"
-    t.index ["user_id"], name: "index_collects_on_user_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -40,9 +37,11 @@ ActiveRecord::Schema.define(version: 20170714132722) do
   create_table "posts", force: :cascade do |t|
     t.text     "content"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.datetime "flag_at"
+    t.integer  "category_id"
+    t.index ["category_id"], name: "index_posts_on_category_id"
   end
 
   create_table "users", force: :cascade do |t|
