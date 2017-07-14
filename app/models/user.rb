@@ -29,5 +29,8 @@ class User < ApplicationRecord
     participated_posts.delete(post)
   end
 
+  def is_admin?
+    role == "admin"
+  end
 
 end
