@@ -39,7 +39,7 @@ class PostsController < ApplicationController
     if !current_user.is_member_of?(@post)
       current_user.join!(@post)
     end
-    redirect_to posts_path
+
   end
 
   def quit
@@ -47,7 +47,7 @@ class PostsController < ApplicationController
     if current_user.is_member_of?(@post)
       current_user.quit!(@post)
     end
-    redirect_to posts_path
+    render "join"
   end
 
 
