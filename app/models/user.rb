@@ -13,4 +13,21 @@ class User < ApplicationRecord
 
   has_many :likes, :dependent => :destroy
   has_many :liked_posts, :through => :likes, :source => :post
+
+  has_many :post_memberships
+  has_many :participated_posts, through: :post_memberships, source: :post
+
+  def is_member_of?(post)
+    participated_posts.include?(post)
+  end
+
+  def join!(post)
+    participated_posts << post
+  end
+
+  def quit!(post)
+    participated_posts.delete(post)
+  end
+
+
 end

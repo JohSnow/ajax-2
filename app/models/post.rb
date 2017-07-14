@@ -8,4 +8,8 @@ class Post < ApplicationRecord
   def find_like(user)
     self.likes.where( :user_id => user.id ).first
   end
+
+  has_many :post_memberships
+  has_many :members, through: :post_memberships, source: :user
+
 end

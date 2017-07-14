@@ -34,6 +34,23 @@ class PostsController < ApplicationController
     render "like"
   end
 
+  def join
+    @post = Post.find(params[:id])
+    if !current_user.is_member_of?(@post)
+      current_user.join!(@post)
+    end
+    redirect_to posts_path
+  end
+
+  def quit
+    @post = Post.find(params[:id])
+    if current_user.is_member_of?(@post)
+      current_user.quit!(@post)
+    end
+    redirect_to posts_path
+  end
+
+
     protected
 
     def post_params
